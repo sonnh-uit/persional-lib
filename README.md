@@ -1,2 +1,1 @@
-# install-ub
-This is some config when you fist use a machine with ubuntu
+# INSTALL ZSH AND OH MY ZSH THEME FOR USER ROOT
