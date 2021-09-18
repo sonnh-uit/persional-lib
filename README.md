@@ -12,4 +12,3 @@
 - Oh - my - zsh with `agnoster` theme
 
 If you want use this, just change variable `MYUSER` and `MYPASSWD` in script
-
