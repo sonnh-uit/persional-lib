@@ -12,3 +12,11 @@
 - Oh - my - zsh with `agnoster` theme
 
 If you want use this, just change variable `MYUSER` and `MYPASSWD` in script
+
+
+If you using ubuntu18, may be `sudo ./install.sh` not work, try `sudo su` and `./install.sh`
+
+
+# Note
+- Install dracula theme in terminal
+- Install byobu
