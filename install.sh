@@ -53,11 +53,11 @@ addnewUser() {
     if [[ $OS_FAMILY -eq 1 ]]; then
         adduser --disabled-password --gecos "" $MYUSER
         echo $MYUSER:$MYPASSWD | chpasswd
-    elif [[ $OS_FAMILY -eq 2 ]]; then
+    else [[ $OS_FAMILY -eq 2 ]]; then
         adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
-    else
-        printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
-        exit 0
+    # else
+    #     printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+    #     exit 0
     fi
     
     echo "$MYUSER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$MYUSER"
@@ -110,11 +110,11 @@ main() {
     if [[ $OS_FAMILY -eq 1 ]]; then
         local cmd='apt-get'
         installZSH $cmd
-    elif [[ $OS_FAMILY -eq 2 ]]; then
+    else [[ $OS_FAMILY -eq 2 ]]; then
         local cmd='yum'
         installZSH $cmd
-    else
-        printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+    # else
+    #     printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
     fi
     exit 1
     printf "${GREEN}Install successfull${PLAIN}\n"
