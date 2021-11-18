@@ -17,6 +17,7 @@ PLAIN='\033[0m'
 #My user and passs
 MYUSER='sonnh11'
 MYPASSWD='123123'
+MYSSHKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8mhLODwa7qWIOnm1uEmuq4788GMTCX2kcFgCB/UMD87Vm0wtqaBGSy9EwpfUbaWifHtXH+P3JY0vNgxAibQn2j4PDHILkg9zrR81FzTcBCPeBvc+vEqlNWCTtBWAGb19WMMNzfj7DMFxP6aV2H9pgHUkiHhFLOyyC1WnGjeusl6j9lt+9s9G0BOQ0iPFLkRoWFZjYbSBOa1CNJTTQFB+tRh44M2nXhkam3Zn0GtMD27T5jwz6a+8NwhKE1M2uoFCWvTNX0t/R72DkPe3ztjq8Zj5/sL+4E3BLX+OK9eQf1/10v2iDWqGeICx6WwUYlIesr9a4P2Vx7p0usd+cjAHF sonnh11@server1'
 
 # check root
 if [ $(/usr/bin/id -u) -ne 0 ]; then
@@ -63,7 +64,7 @@ addnewUser() {
     mkdir /home/$MYUSER/.ssh
     chmod 700 /home/$MYUSER/.ssh
     chown $MYUSER:$MYUSER /home/$MYUSER/.ssh
-    echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8mhLODwa7qWIOnm1uEmuq4788GMTCX2kcFgCB/UMD87Vm0wtqaBGSy9EwpfUbaWifHtXH+P3JY0vNgxAibQn2j4PDHILkg9zrR81FzTcBCPeBvc+vEqlNWCTtBWAGb19WMMNzfj7DMFxP6aV2H9pgHUkiHhFLOyyC1WnGjeusl6j9lt+9s9G0BOQ0iPFLkRoWFZjYbSBOa1CNJTTQFB+tRh44M2nXhkam3Zn0GtMD27T5jwz6a+8NwhKE1M2uoFCWvTNX0t/R72DkPe3ztjq8Zj5/sL+4E3BLX+OK9eQf1/10v2iDWqGeICx6WwUYlIesr9a4P2Vx7p0usd+cjAHF sonnh11@server1" > /home/$MYUSER/.ssh/authorized_keys
+    echo "$MYSSHKEY" > /home/$MYUSER/.ssh/authorized_keys
     chmod 700 /home/$MYUSER/.ssh/authorized_keys
     chown $MYUSER:$MYUSER /home/$MYUSER/.ssh/authorized_keys
 
@@ -72,51 +73,34 @@ addnewUser() {
 installLib() {
     local cmd=$1
     $cmd -y install zsh
-    $cmd -y install git
     $cmd -y install wget
     $cmd -y install fonts-powerline
     $cmd -y install nano
     $cmd -y update
 }
 
-ISubuntu () {
-    su $MYUSER -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
-    su $MYUSER -c "git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-    su $MYUSER -c "sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc"
-    su $MYUSER -c "echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc"
-
-    su $MYUSER -c "yes | cp -i ~/.zshrc /root/.zshrc"
-    su $MYUSER -c "cp -avr ~/.oh-my-zsh /root/.oh-my-zsh"
-
-    chown root:root /root/.zshrc
-    chmod 755 /root/.zshrc
-
-    chown -R root:root /root/.oh-my-zsh
-    chmod -R 755 /root/.oh-my-zsh
-}
-
 installZSH () {
     
     installLib $1
-    if [[ $OS_FAMILY -eq 1 ]]; then
-        ISubuntu
-    else 
-        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-        git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc
-        echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
-        yes | cp -i ~/.zshrc /home/$MYUSER/.zshrc
-        cp -avr ~/.oh-my-zsh /home/$MYUSER/.oh-my-zsh
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc
+    echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+    yes | cp -i ~/.zshrc /home/$MYUSER/.zshrc
+    cp -avr ~/.oh-my-zsh /home/$MYUSER/.oh-my-zsh
 
-        chown $MYUSER:$MYUSER /home/$MYUSER/.zshrc
-        chmod 755 /home/$MYUSER/.zshrc
+    chown $MYUSER:$MYUSER /home/$MYUSER/.zshrc
+    chmod 755 /home/$MYUSER/.zshrc
 
-        chown -R $MYUSER:$MYUSER /home/$MYUSER/.oh-my-zsh
-        chmod -R 755 /home/$MYUSER/.oh-my-zsh
-    fi
+    chown -R $MYUSER:$MYUSER /home/$MYUSER/.oh-my-zsh
+    chmod -R 755 /home/$MYUSER/.oh-my-zsh
 
     sed -i "/$MYUSER:x:1001:1001/c\\$MYUSER:x:1001:1001::/home/$MYUSER:/usr/bin/zsh" /etc/passwd
     sed -i '/root:x:0:0:root:/c\root:x:0:0:root:/root:/usr/bin/zsh' /etc/passwd
+
+    if [[ $OS_FAMILY -eq 1 ]]; then
+        sed -i "/root/.oh-my-zsh/c\export ZSH=\"/home/$MYUSER/.oh-my-zsh\"" /home/$MYUSER/.zshrc
+    fi
 }
 
 
