@@ -30,10 +30,10 @@ checkOSInfo() {
         . /etc/os-release
         case $NAME in
             "Ubuntu")
-                $OS_FAMILY=1
+                OS_FAMILY=1
                 ;;
             "CentOS Linux"|"Red Hat Enterprise Linux")
-                $OS_FAMILY=2
+                OS_FAMILY=2
                 ;;
             *)
                 printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
