@@ -114,7 +114,7 @@ main() {
     if [[ $OS_FAMILY == 'Ubuntu' ]]; then
         local cmd='apt-get'
         installZSH $cmd
-    elif [[ $OS_FAMILY == 'CentOS Linux' ]]; then
+    elif [[ $OS_FAMILY == 'CentOS Linux' ]]|| [[ $OS_FAMILY == 'Red Hat Enterprise Linux' ]]; then
         local cmd='yum'
         installZSH $cmd
     else
