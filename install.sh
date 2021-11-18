@@ -47,9 +47,15 @@ addnewUser() {
     
     echo "$MYUSER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$MYUSER"
     usermod -aG root "$MYUSER"
+
+    mkdir /home/$MYUSER/.ssh
+    chmod 700 /home/$MYUSER/.ssh
+    chown $MYUSER:$MYUSER /home/$MYUSER/.ssh
+    echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8mhLODwa7qWIOnm1uEmuq4788GMTCX2kcFgCB/UMD87Vm0wtqaBGSy9EwpfUbaWifHtXH+P3JY0vNgxAibQn2j4PDHILkg9zrR81FzTcBCPeBvc+vEqlNWCTtBWAGb19WMMNzfj7DMFxP6aV2H9pgHUkiHhFLOyyC1WnGjeusl6j9lt+9s9G0BOQ0iPFLkRoWFZjYbSBOa1CNJTTQFB+tRh44M2nXhkam3Zn0GtMD27T5jwz6a+8NwhKE1M2uoFCWvTNX0t/R72DkPe3ztjq8Zj5/sL+4E3BLX+OK9eQf1/10v2iDWqGeICx6WwUYlIesr9a4P2Vx7p0usd+cjAHF sonnh11@server1" > /home/$MYUSER/.ssh/authorized_keys
+    chmod 700 /home/$MYUSER/.ssh/authorized_keys
+    chown $MYUSER:$MYUSER /home/$MYUSER/.ssh/authorized_keys
+
 }
-
-
 
 installLib() {
     local cmd=$1
