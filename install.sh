@@ -33,11 +33,12 @@ checkOSInfo() {
             "Ubuntu")
                 OS_FAMILY=1
                 ;;
-            "CentOS Linux"|"Red Hat Enterprise Linux"|"Amazon Linux"")
+            "CentOS Linux"|"Red Hat Enterprise Linux"|"Amazon Linux")
                 OS_FAMILY=2
                 ;;
             *)
                 printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+                exit 1
                 ;;
         esac
     else
