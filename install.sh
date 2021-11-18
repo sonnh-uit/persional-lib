@@ -38,7 +38,7 @@ addnewUser() {
     if [[ $OS_FAMILY == 'Ubuntu' ]]; then
         adduser --disabled-password --gecos "" $MYUSER
         echo $MYUSER:$MYPASSWD | chpasswd
-    elif [[ $OS_FAMILY == 'CentOS Linux' ]]; then
+    elif [[ $OS_FAMILY == 'CentOS Linux' ]] || [[ $OS_FAMILY == 'Red Hat Enterprise Linux' ]]; then
         adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
     else
         printf "${RED}Error: ${PLAIN} OS is not Ubuntu or CentOS\n"
