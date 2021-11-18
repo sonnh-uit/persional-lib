@@ -25,6 +25,7 @@ if [ $(/usr/bin/id -u) -ne 0 ]; then
 fi
 
 checkOSInfo() {
+    clear
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         case $NAME in
@@ -132,7 +133,7 @@ main() {
         printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
     fi
     exit 1
-    clear
+    printf "${GREEN}Install successfull${PLAIN}\n"
 }
 
 checkOSInfo
