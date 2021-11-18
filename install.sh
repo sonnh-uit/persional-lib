@@ -27,21 +27,32 @@ fi
 checkOSInfo() {
     if [ -f /etc/os-release ]; then
         . /etc/os-release
-        OS_FAMILY=$NAME
+        case $NAME in
+            "Ubuntu")
+                $OS_FAMILY=1
+                ;;
+            "CentOS Linux"|"Red Hat Enterprise Linux")
+                $OS_FAMILY=2
+                ;;
+            *)
+                printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+                ;;
+        esac
     else
-        echo "Cannot check OS infomation"
+        printf "${RED}Error: ${PLAIN} Cannot check OS information\n"
     fi
+
 }
 
 # sudo without password
 addnewUser() {
-    if [[ $OS_FAMILY == 'Ubuntu' ]]; then
+    if [[ $OS_FAMILY -eq 1 ]]; then
         adduser --disabled-password --gecos "" $MYUSER
         echo $MYUSER:$MYPASSWD | chpasswd
-    elif [[ $OS_FAMILY == 'CentOS Linux' ]] || [[ $OS_FAMILY == 'Red Hat Enterprise Linux' ]]; then
+    elif [[ $OS_FAMILY -eq 2 ]]; then
         adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
     else
-        printf "${RED}Error: ${PLAIN} OS is not Ubuntu or CentOS\n"
+        printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
         exit 0
     fi
     
@@ -86,7 +97,7 @@ ISubuntu () {
 installZSH () {
     
     installLib $1
-    if [[ $OS_FAMILY == 'Ubuntu' ]]; then
+    if [[ $OS_FAMILY -eq 1 ]]; then
         ISubuntu
     else 
         wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
@@ -111,14 +122,14 @@ installZSH () {
 
 main() {
     addnewUser
-    if [[ $OS_FAMILY == 'Ubuntu' ]]; then
+    if [[ $OS_FAMILY -eq 1 ]]; then
         local cmd='apt-get'
         installZSH $cmd
-    elif [[ $OS_FAMILY == 'CentOS Linux' ]]|| [[ $OS_FAMILY == 'Red Hat Enterprise Linux' ]]; then
+    elif [[ $OS_FAMILY -eq 2 ]]; then
         local cmd='yum'
         installZSH $cmd
     else
-        printf "${RED}Error: ${PLAIN} OS is not Ubuntu or CentOS\n"
+        printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
     fi
     exit 1
     clear
