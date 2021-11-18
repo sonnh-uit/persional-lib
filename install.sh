@@ -99,7 +99,7 @@ installZSH () {
     sed -i '/root:x:0:0:root:/c\root:x:0:0:root:/root:/usr/bin/zsh' /etc/passwd
 
     if [[ $OS_FAMILY -eq 1 ]]; then
-        sed -i "/root/.oh-my-zsh/c\export ZSH=\"/home/$MYUSER/.oh-my-zsh\"" /home/$MYUSER/.zshrc
+        sed -i "/root\/.oh-my-zsh/c\export ZSH=\"/home/$MYUSER/.oh-my-zsh\"" /home/$MYUSER/.zshrc
     fi
 }
 
