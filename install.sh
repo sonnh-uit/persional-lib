@@ -98,7 +98,7 @@ installZSH () {
     chown -R $MYUSER:$MYUSER /home/$MYUSER/.oh-my-zsh
     chmod -R 755 /home/$MYUSER/.oh-my-zsh
 
-    sed -i "/$MYUSER:x:/c\\$MYUSER:x:1001:1001::/home/$MYUSER:/usr/bin/zsh" /etc/passwd
+    sed -i "/$MYUSER:x:1001:1001/c\\$MYUSER:x:1001:1001::/home/$MYUSER:/usr/bin/zsh" /etc/passwd
     sed -i '/root:x:0:0:root:/c\root:x:0:0:root:/root:/usr/bin/zsh' /etc/passwd
 
     if [[ $OS_FAMILY -eq 1 ]]; then
