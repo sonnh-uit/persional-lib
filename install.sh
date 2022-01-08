@@ -57,6 +57,8 @@ addnewUser() {
         else #centos and ret hat
             adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
         fi
+    else
+        printf "${RED}Error: ${PLAIN} User $MYUSER is existed\n"
     fi
     
     echo "$MYUSER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$MYUSER"
