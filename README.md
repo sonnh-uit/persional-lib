@@ -20,3 +20,7 @@ If you using ubuntu18, may be `sudo ./install.sh` not work, try `sudo su` and `.
 # Note
 - Install dracula theme in terminal
 - Install byobu
+
+# Reference
+- https://stackoverflow.com/questions/13242469/how-to-use-sed-grep-to-extract-text-between-two-words
+- https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
