@@ -35,18 +35,19 @@ install_mysql()
     wget "https://dev.mysql.com/get/$rpm_package"
     rpm -ivh $rpm_package
     yum -y install mysql-server
+    rm -f $rpm_package
     service mysqld start
     password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
     mysql -uroot -p$password_match --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWD'; flush privileges;"
     user=root
     password=$MYSQL_ROOT_PASSWD > /root/.my.cnf
-    enable_service
 }
 
 main()
 {
     install_apache
     install_mysql
+    enable_service
 }
 
 main
