@@ -31,7 +31,7 @@ checkOSInfo() {
         . /etc/os-release
         case $NAME in
             "Ubuntu")
-                OS_FAMILY=1
+                OS_FAMILY=1 #define a variable for OS famili
                 ;;
             "CentOS Linux"|"Red Hat Enterprise Linux"|"Amazon Linux")
                 OS_FAMILY=2
@@ -50,15 +50,13 @@ checkOSInfo() {
 
 # Add my user to system
 addnewUser() {
-    if [[ $OS_FAMILY -eq 1 ]]; then
-        adduser --disabled-password --gecos "" $MYUSER
-        echo $MYUSER:$MYPASSWD | chpasswd
-    # else [[ $OS_FAMILY -eq 2 ]]; then
-    else
-        adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
-    # else
-    #     printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
-    #     exit 0
+    if [ ! -d "/home/$MYUSER" ]; then
+        if [[ $OS_FAMILY -eq 1 ]]; then #ubuntu
+            adduser --disabled-password --gecos "" $MYUSER
+            echo $MYUSER:$MYPASSWD | chpasswd
+        else #centos and ret hat
+            adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
+        fi
     fi
     
     echo "$MYUSER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$MYUSER"
@@ -111,12 +109,9 @@ main() {
     if [[ $OS_FAMILY -eq 1 ]]; then
         local cmd='apt-get'
         installZSH $cmd
-    # else [[ $OS_FAMILY -eq 2 ]]; then
     else
         local cmd='yum'
         installZSH $cmd
-    # else
-    #     printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
     fi
     exit 1
     printf "${GREEN}Install successfull${PLAIN}\n"
