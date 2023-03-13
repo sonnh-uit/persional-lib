@@ -1,0 +1,17 @@
+---
+- hosts: your_host_here
+  gather_facts: true
+  become: yes
+  vars:
+    user_name: "your_user_name_here"
+  tasks:
+    - name: Add user to server
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        shell: /bin/bash
+        groups: root
+    - name: Set authorized key for user
+      ansible.posix.authorized_key:
+        user: "{{ user_name }}"
+        state: present
+        key: "{{ lookup('file', 'public_key') }}"
