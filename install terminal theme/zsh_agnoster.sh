@@ -16,7 +16,6 @@ PLAIN='\033[0m'
 USER_NAME='your_user_here'
 PACKAGE_COMMAND=''
 ZSH_LINK='https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh'
-ZSH_autosuggestions
 ZSH_AUTOSUGGESTIONS='https://github.com/zsh-users/zsh-autosuggestions'
 
 # check root
