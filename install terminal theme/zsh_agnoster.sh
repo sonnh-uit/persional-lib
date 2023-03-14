@@ -59,7 +59,6 @@ installLib() {
 
 installZSH () {
     
-    installLib $1
     wget $ZSH_LINK -O - | zsh
     git clone $ZSH_AUTOSUGGESTIONS ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc
