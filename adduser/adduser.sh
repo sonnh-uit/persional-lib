@@ -7,7 +7,7 @@
 
 #!/bin/bash
 
-USER='sonnh11'
+USER='your_user_here'
 PASSWD=''  # Input your password. If not, use random password
 PUBLIC_KEY='' # Input your public key
 
