@@ -48,7 +48,7 @@ OS_check() {
         exit 1
     fi
 
-    if if [ ! -e '/usr/bin/openssl' ];
+    if [ ! -e '/usr/bin/openssl' ];
     then
         $PACKAGE_COMMAND -y install openssl
     fi
