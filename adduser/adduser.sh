@@ -7,7 +7,7 @@
 
 #!/bin/bash
 
-USER='your_user_here'
+USER='alice' # Input your username here 
 PASSWD=''  # Input your password. If not, use random password
 PUBLIC_KEY='' # Input your public key
 
@@ -57,14 +57,15 @@ OS_check() {
 generate_secret() {
     if [ -z "$PASSWD" ]
     then
-        PASSWD = `(echo $RANDOM | md5sum | head -c 20; echo;` 
-        echo "Your password is:" $PASSWD >> $SECRET_FILE
+        PASSWD="$(echo $RANDOM | md5sum | head -c 20; echo;)"
+        echo "Your password is:" "$PASSWD" >> $SECRET_FILE
     fi
 
-    if [ -z "$PUBLIC_KEY" ]
+    if [ -z "$PUBLIC_KEY" ];
+    then
         ssh-keygen -q -t rsa -N '' -f ~/secret <<<y >/dev/null 2>&1
-        PUBLIC_KEY = `cat ~/secret.pub`
-        echo "Your secret key is below.\n " `cat ~/secret` >>  $SECRET_FILE
+        PUBLIC_KEY=`cat ~/secret.pub`
+        echo "Your secret key is below.\n" "$($cat ~/secret)" >>  $SECRET_FILE
     fi
     rm -rf ~/secret secret.txt
 
@@ -72,26 +73,26 @@ generate_secret() {
 
 
 addnewUser() {
-    if [ ! -d "/home/$MYUSER" ]; then
+    if [ ! -d "/home/$USER" ]; then
         if [[ $OS_FAMILY -eq 1 ]]; then #ubuntu
-            adduser --disabled-password --gecos "" $MYUSER
-            echo $MYUSER:$MYPASSWD | chpasswd
+            adduser --disabled-password --gecos "" $USER
+            echo $USER:$PASSWD | chpasswd
         else #centos and ret hat
-            adduser -p $(openssl passwd -1 $MYPASSWD) $MYUSER
+            adduser -p $(openssl passwd -1 $PASSWD) $USER
         fi
     else
         printf "${RED}Error: ${PLAIN} Add user fail!\n"
     fi
     
-    echo "$MYUSER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$MYUSER"
-    usermod -aG root "$MYUSER"
+    echo "$USER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER"
+    usermod -aG root "$USER"
 
-    mkdir /home/$MYUSER/.ssh
-    chmod 700 /home/$MYUSER/.ssh
-    chown $MYUSER:$MYUSER /home/$MYUSER/.ssh
-    echo "$MYSSHKEY" > /home/$MYUSER/.ssh/authorized_keys
-    chmod 700 /home/$MYUSER/.ssh/authorized_keys
-    chown $MYUSER:$MYUSER /home/$MYUSER/.ssh/authorized_keys
+    mkdir /home/$USER/.ssh
+    chmod 700 /home/$USER/.ssh
+    chown $USER:$USER /home/$USER/.ssh
+    echo "$PUBLIC_KEY" > /home/$USER/.ssh/authorized_keys
+    chmod 700 /home/$USER/.ssh/authorized_keys
+    chown $USER:$USER /home/$USER/.ssh/authorized_keys
 
 }
 
