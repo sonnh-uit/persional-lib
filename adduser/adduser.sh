@@ -9,7 +9,7 @@
 
 USER='alice' # Input your username here 
 PASSWD=''  # Input your password. If not, use random password
-PUBLIC_KEY='$(<public_key)'
+PUBLIC_KEY=$(<public_key)
 
 # Colors
 RED='\033[0;31m'
