@@ -1,0 +1,1 @@
+This folder have script to add new user to linux OS and promote its become root priviledge without password.

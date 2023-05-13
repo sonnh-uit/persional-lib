@@ -1,0 +1,1 @@
+This folder include all scripts (if possible to public) I use in linux to quick setup

@@ -1,0 +1,1 @@
+This folder have script to mount a partition (data disk) to linux system.

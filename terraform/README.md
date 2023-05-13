@@ -1,0 +1,1 @@
+This folder include basic terraform script to create a virtual machine in each cloud provider

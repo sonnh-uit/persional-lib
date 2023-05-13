@@ -1,0 +1,1 @@
+This folder have script which setup lamp server in linux

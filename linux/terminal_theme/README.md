@@ -1,0 +1,1 @@
+This folder have script to install and config shell theme is zsh agnoster
