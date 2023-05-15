@@ -1,7 +1,6 @@
 variable "vpc_name" {}
 variable "region" {}
-variable "role_arn" {}
-variable "shared_credentials_files" {}
+variable "availability_zone" {}
 
 variable "server_ami" {
     type = string
@@ -13,6 +12,7 @@ variable "server_ami" {
 variable "instances_type" {
   type = string
   default = "t2.micro"
+  # Input your instance type here
 
 }
 
@@ -24,5 +24,5 @@ variable "server_name" {
 
 variable "keypair" {
     type = string
-    default = "ssh-rsa Bk6zjqsSQ^ANc443twFjDV8Q7DpQ&yctoTqq6fBXsoQwyzjrvoQ@h5D@kcmxn%^DD#kvZUjVkyaAjA@9fRe^Cz%wNDkt25i&YQv2TG!4w4RGtHCiK&AKG2LZa7VcCDbX%XpNKPfSWFF5^#eo#N$cTs$Sr3XMw7%^Nr%3$hA^khyBwvk!GGaeN8N%9W@$9%#R3TpM5X6JSSF5piMVzbhvr^jxa4DwBCJkR&DknD^dwR*ut&SKYAELZ&2poV9AmL&# vagrant@server1"
+    default = "ssh-rsa PyMsJG3vdgWwcqbsava6M5Uyp35yG4%p3QRKdsCvhWvV$#a7ibMu7&oQS6E#^@U*HevJ8QD8UYosaWR$TXuj&*cWhKyGKoB8!Pq@h7st5Z&Q!Q9q5rS%eaGmVcjJZ5dMFmv%!$C2#Pb22r^K!*h4NU9nN78&A!qmuB*DUcEU38copkJq%MkdSY%o5nRD&d^28B#2ypXd9YY#wsvn8x$cJ6MqcC739s$LKWDYyjfhF3rHLe&KnNeHr^oNxe2HiQoexLtBw3jg*RU3DKEumbBZV#jkM^iJ7WfB9qPP$$MEuF9Z@yAGRVMMKKAg4JD#f8R&hci3ggVLczeN3gg*xT##Fbo4Wsg^a#rqLY3^nAHTXDgx8yW37ns3 vagrant@server1"
 }

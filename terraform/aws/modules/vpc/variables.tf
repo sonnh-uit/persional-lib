@@ -1,11 +1,6 @@
 variable "vpc_name" {}
 variable "region" {}
-variable "role_arn" {
-    type = string
-    default = "arn:aws:iam::643589119202:role/terraform_ec2_vpc"
-}
-variable "shared_credentials_files" {}
-
+variable "availability_zone" {}
 
 variable "vpc_cidr_block" {
     type = string
@@ -18,8 +13,20 @@ variable "public_subnet_cidrs" {
     default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
-variable "availability_zone" {
+variable "private_subnet_cidrs" {
+    type        = list(string)
+    default     = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
+}
+
+
+variable "internet_gateway_name" {
     type = string
-    default = "ap-southeast-1b"
+    default = "public_internet_gateway"
+  
+}
+
+variable "internet_route_name" {
+    type = string
+    default = "internet_route_table"
   
 }

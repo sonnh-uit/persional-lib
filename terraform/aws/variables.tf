@@ -5,7 +5,7 @@ variable "region" {
 
 variable "role_arn" {
     type = string
-    default = "arn:aws:iam::726694885256:role/terraform_ec2_vpc"
+    default = "arn:aws:iam::834472459895:role/terraform_test_role"
   
 }
 
@@ -15,7 +15,8 @@ variable "vpc_name" {
   
 }
 
-variable "shared_credentials_files" {
-    default = "../../credentials"
+variable "availability_zone" {
+    type = string
+    default = "ap-southeast-1b"
   
 }

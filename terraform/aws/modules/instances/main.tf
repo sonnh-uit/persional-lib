@@ -44,6 +44,7 @@ data "aws_network_interface" "network_interface_1" {
   
 }
 
+
 resource "aws_key_pair" "personal_keypair" {
     key_name = "personal_keypair"
     public_key = var.keypair
@@ -54,6 +55,7 @@ resource "aws_key_pair" "personal_keypair" {
 resource "aws_instance" "terraform_server" {
     ami = var.server_ami
     instance_type = var.instances_type
+    availability_zone = var.availability_zone
     key_name = aws_key_pair.personal_keypair.key_name
 
     tags = {
@@ -61,7 +63,6 @@ resource "aws_instance" "terraform_server" {
     }
 
     root_block_device {
-        delete_on_termination = true
         volume_size           = 20
         volume_type           = "gp2"
         tags = {

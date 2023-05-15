@@ -6,17 +6,17 @@ resource "aws_vpc" "terraform_test_vpc" {
   
 }
 
-# resource "aws_subnet" "private_subnet" {
-#     count = length(var.private_subnet_cidrs)
-#     vpc_id = aws_vpc.terraform_test_vpc.id
-#     cidr_block = element(var.private_subnet_cidrs, count.index)
-#     availability_zone = var.availability_zone
+resource "aws_subnet" "private_subnet" {
+    count = length(var.private_subnet_cidrs)
+    vpc_id = aws_vpc.terraform_test_vpc.id
+    cidr_block = element(var.private_subnet_cidrs, count.index)
+    availability_zone = var.availability_zone
 
-#     tags = {
-#         "Name" = "private_subnet_${count.index + 1}"
-#     }
+    tags = {
+        "Name" = "private_subnet_${count.index + 1}"
+    }
   
-# }
+}
 
 resource "aws_subnet" "public_subnet" {
     count = length(var.public_subnet_cidrs)
@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "internet_gateway" {
     vpc_id = aws_vpc.terraform_test_vpc.id
 
     tags = {
-        "Name" = "Terraform_IG"
+        "Name" = var.internet_gateway_name
     }
   
 }
@@ -49,7 +49,7 @@ resource "aws_route_table" "internet_route" {
     }
 
     tags = {
-        Name = "Internet route table"
+        Name = var.internet_route_name
     }
   
 }
@@ -58,7 +58,6 @@ resource "aws_route_table_association" "public_route_associate" {
     count = length(var.public_subnet_cidrs)
     subnet_id = element(aws_subnet.public_subnet[*].id, count.index)
     route_table_id = aws_route_table.internet_route.id
-  
 }
 
 resource "aws_security_group" "default_seg" {
@@ -116,13 +115,11 @@ resource "aws_security_group_rule" "egress" {
 
 
 resource "aws_network_interface" "terrafrom_network_interface" {
-    count = length(var.public_subnet_cidrs)
-    subnet_id = element(aws_subnet.public_subnet[*].id, count.index)
+    subnet_id = aws_subnet.public_subnet[0].id
     security_groups = [aws_security_group.default_seg.id]
-    ipv4_prefix_count = 2
 
     tags = {
-        Name = "network_interface_${count.index + 1}"
+        Name = "network_interface_1"
     }
 }
 
