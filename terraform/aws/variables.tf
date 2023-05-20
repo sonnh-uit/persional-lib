@@ -5,7 +5,7 @@ variable "region" {
 
 variable "role_arn" {
     type = string
-    default = "arn:aws:iam::834472459895:role/terraform_test_role"
+    default = "arn:aws:iam::229344243232:role/terraform_test_role"
   
 }
 
@@ -18,5 +18,11 @@ variable "vpc_name" {
 variable "availability_zone" {
     type = string
     default = "ap-southeast-1b"
+  
+}
+
+variable "ops_list_username" {
+    type = list(string)
+    default = [ "ops_lincoln", "ops_trump", "ops_roosevelt" ]
   
 }

@@ -17,6 +17,13 @@ module "instances" {
   
 }
 
+module "iam" {
+    source = "./modules/iams"
+
+    ops_list_username = var.ops_list_username
+  
+}
+
 provider "aws" {
     region = var.region
     shared_credentials_files = ["./credentials"]
