@@ -1,3 +1,10 @@
+module "iam" {
+    source = "./modules/iams"
+
+    ops_list_username = var.ops_list_username
+  
+}
+
 module "vpcs" {
     source = "./modules/vpc"
 
@@ -9,18 +16,20 @@ module "vpcs" {
 
 module "instances" {
     source = "./modules/instances"
-    depends_on = [ module.vpcs ]
-
+    depends_on = [ module.vpcs, module.iam ]
+    
     region = var.region
     vpc_name = var.vpc_name
     availability_zone = var.availability_zone
   
 }
 
-module "iam" {
-    source = "./modules/iams"
 
-    ops_list_username = var.ops_list_username
+
+module "s3" {
+    source = "./modules/s3"
+
+    bucket_name_prefix = var.bucket_name_prefix
   
 }
 

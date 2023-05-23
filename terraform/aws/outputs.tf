@@ -21,3 +21,8 @@ output "authenticate_list_account" {
     sensitive = true
   
 }
+
+output "bucket_information" {
+    value = module.s3.bucket_information
+  
+}

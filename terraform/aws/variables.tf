@@ -5,7 +5,7 @@ variable "region" {
 
 variable "role_arn" {
     type = string
-    default = "arn:aws:iam::229344243232:role/terraform_test_role"
+    default = "arn:aws:iam::899795251363:role/terraform_test_role"
   
 }
 
@@ -24,5 +24,11 @@ variable "availability_zone" {
 variable "ops_list_username" {
     type = list(string)
     default = [ "ops_lincoln", "ops_trump", "ops_roosevelt" ]
+  
+}
+
+variable "bucket_name_prefix" {
+    type = string
+    default = "998-example-bucket-name"
   
 }
