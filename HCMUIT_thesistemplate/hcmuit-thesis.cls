@@ -1,82 +1,59 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hcmut-thesis}
-
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
 \ProcessOptions\relax
 \LoadClass[12pt,a4paper]{memoir}
 
-% \RequirePackage[utf8]{vntex,inputenc}
+% Require package
 \RequirePackage{anyfontsize,mathptmx}
 \RequirePackage[T5]{fontenc}
-
 \RequirePackage{geometry,graphicx,indentfirst,setspace}
 \RequirePackage{tikz}
 \RequirePackage[center]{caption}
-
 \RequirePackage{fancyhdr,hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
 \RequirePackage[super,square,sort]{natbib}
-
-% Change to [english,vietnamese] to use Vietnamese labels
-% \RequirePackage[english]{babel}
 \RequirePackage[vietnamese,english]{babel}
-% \RequirePackage[utf8]{vietnam}
 
-% Custom commands
-\newcommand{\Month}{
-  \ifcase \the\month
-  \or January
-  \or February
-  \or March
-  \or April
-  \or May
-  \or June
-  \or July
-  \or August
-  \or September
-  \or October
-  \or November
-  \or December
-  \fi
-}
-
-\newcommand{\@upperuniname}{ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH}
-\newcommand{\@uniname}{TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN}
-
-\newcommand{\@deptname}{Faculty of Computer Science and Engineering}
+% Set command to provide param 
+\newcommand{\@upperuniname}{}
+\newcommand{\upperuniname}[1]{\renewcommand{\@upperuniname}{#1}}
+\newcommand{\@uniname}{}
+\newcommand{\uniname}[1]{\renewcommand{\@uniname}{#1}}
+\newcommand{\@deptname}{}
 \newcommand{\deptname}[1]{\renewcommand{\@deptname}{#1}}
-
-\newcommand{\@reporttype}{Graduation Thesis}
+\newcommand{\@reporttype}{KHÓA LUẬN TỐT NGHIỆP}
 \newcommand{\reporttype}[1]{\renewcommand{\@reporttype}{#1}}
-
-\newcommand{\@stumajor}{Computer Science}
+\newcommand{\@stumajor}{}
 \newcommand{\stumajor}[1]{\renewcommand{\@stumajor}{#1}}
-
-\renewcommand{\@title}{Report title}
-
+\renewcommand{\@title}{}
+\newcommand{\@titleen}{}
+\newcommand{\titleen}[1]{\renewcommand{\@titleen}{#1}}
 \newcommand{\@defcouncil}{Council}
 \newcommand{\defcouncil}[1]{\renewcommand{\@defcouncil}{#1}}
-
-\newcommand{\@supervisor}{Supervisor}
+\newcommand{\@supervisor}{}
 \newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}}
-
 \newcommand{\@secretary}{Secretary}
 \newcommand{\secretary}[1]{\renewcommand{\@secretary}{#1}}
-
-\newcommand{\@reviewer}{Reviewer}
-\newcommand{\reviewer}[1]{\renewcommand{\@reviewer}{#1}}
-
-\newcommand{\@stuname}{STUDENT:\ H (xxxxxxx)}
+\newcommand{\@instruction}{GIẢNG VIÊN HƯỚNG DẪN}
+\newcommand{\instruction}[1]{\renewcommand{\@instruction}{#1}}
+\newcommand{\@stuname}{}
 \newcommand{\stuname}[1]{\renewcommand{\@stuname}{#1}}
-
-\newcommand{\@reportplace}{Thành phố Hồ Chí Minh}
+\newcommand{\@stunamewithid}{}
+\newcommand{\stunamewithid}[1]{\renewcommand{\@stunamewithid}{#1}}
+\newcommand{\@reportplace}{TP. HỒ CHÍ MINH}
 \newcommand{\reportplace}[1]{\renewcommand{\@reportplace}{#1}}
-
-\newcommand{\@reporttime}{tháng 6 năm 2023}
-% \newcommand{\reporttime}[1]{\renewcommand{\@reporttime}{#1}}
-
+\newcommand{\@reporttime}{}
+\newcommand{\reporttime}[1]{\renewcommand{\@reporttime}{#1}}
+\renewcommand{\cellalign}{vh}
+\renewcommand{\theadalign}{vh}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\large}{\fontsize{15}{15}\selectfont}
+\renewcommand{\Large}{\fontsize{20}{20}\selectfont}
+\renewcommand{\arraystretch}{1.2}
 % Configurations
 \usetikzlibrary{calc}
-
 \geometry{
   paper=a4paper,
   left=3cm,
@@ -86,21 +63,16 @@
   headheight=30pt
 }
 
-\renewcommand{\large}{\fontsize{15}{15}\selectfont}
-\renewcommand{\Large}{\fontsize{20}{20}\selectfont}
-
 \OnehalfSpacing
 \raggedbottom
-\renewcommand{\arraystretch}{1.2}
 
 % Set depth of numbering for sections and table of contents
 \setsecnumdepth{subsection}
 \settocdepth{subsection}
 
-% Set numwidths (see Section 9)
+% Set numwidths
 \setlength{\cfttablenumwidth}{3em}
 \setlength{\cftfigurenumwidth}{3em}
-
 \AtBeginDocument{\renewcommand*\bibname{References}}
 
 \hypersetup{
@@ -109,9 +81,6 @@
   citecolor=blue,
   urlcolor=blue
 }
-
-\renewcommand{\headrulewidth}{0.3pt}
-\renewcommand{\footrulewidth}{0pt}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -128,7 +97,6 @@
 \def\coverpage{
   \pagestyle{empty}
   \large\bfseries
-
   \begin{tikzpicture}[remember picture,overlay]
     \draw[line width=3pt](
     $(current page.north west) + (3.0cm,-2.0cm)$
@@ -141,51 +109,79 @@
     $(current page.south east) + (-1.9cm,1.9cm)$
     );
   \end{tikzpicture}
-
   \vspace*{-3\baselineskip}
   \begin{center}
     \uppercase{\@upperuniname}
-
     \uppercase{\@uniname}
-
-    % \MakeUppercase{\@deptname}
+    \uppercase{\@deptname}
     \vfill
-    \includegraphics[scale=1.4]{graphics/UIT-logo.png}
+    \uppercase{\@stuname}
     \vfill
     \uppercase{\@reporttype}
     \vfill
-    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@title}}}
-    % \vfill
-    % {\mdseries Major: \@stumajor}
+    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
+    \vfill
+    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
+    \vfill
+    \uppercase {\@stumajor}
   \end{center}
   \vfill
-  % \hfill\parbox[t]{12cm}{
-  \hfill\parbox{12cm}{
-    % THESIS COMMITTEE: \@defcouncil
-
-    GVHD: \parbox[t]{10cm}{\@supervisor}
-
-    %MEMBER SECRETARY: \@secretary
-    % REVIEWER: \@reviewer
-
-    % \hspace*{3cm} ---o0o---
-    \hspace*{3cm}
-    
-  }
-  \begin{center}
-        \@stuname
-    \end{center}
   \vfill
   \mdseries
   \begin{center}
-    \textit{\@reportplace, \@reporttime}
+    \uppercase{\@reportplace, \@reporttime}
   \end{center}
   \normalsize
-
   \cleardoublepage
   \pagestyle{fancy}
 }
 
+
+\def\secondcoverpage{
+  \pagestyle{empty}
+  \large\bfseries
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=3pt](
+    $(current page.north west) + (3.0cm,-2.0cm)$
+    ) rectangle (
+    $(current page.south east) + (-2.0cm,2.0cm)$
+    );
+    \draw[line width=1pt](
+    $(current page.north west) + (2.9cm,-1.9cm)$
+    ) rectangle (
+    $(current page.south east) + (-1.9cm,1.9cm)$
+    );
+  \end{tikzpicture}
+  \vspace*{-3\baselineskip}
+  \begin{center}
+    \uppercase{\@upperuniname}
+    \uppercase{\@uniname}
+    \uppercase{\@deptname}
+    \vfill
+    \uppercase{\@stunamewithid}
+    \vfill
+    \uppercase{\@reporttype}
+    \vfill
+    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
+    \vfill
+    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
+    \vfill
+    \uppercase {\@stumajor} \\
+    \vfill
+    \uppercase {\@instruction} \\ 
+    \uppercase {\@supervisor} 
+  \end{center}
+  \vfill
+  \vfill
+  \mdseries
+  \begin{center}
+    \uppercase{\@reportplace, \@reporttime}
+  \end{center}
+  \normalsize
+
+  \cleardoublepage
+  \pagest
+  
 \providecommand{\phantomsection}{}
 \newenvironment{preface}[1]{
   \vspace*{\stretch{2}}
