@@ -1,0 +1,104 @@
+\chapter{Giới thiệu tổng quan}
+\section{OpenNebula là gì?}
+
+
+OpenNebula là một giải pháp mạnh được sử dụng để xây dựng và quản lý \textbf{Enterprise Clouds.} Nó bao gồm nhiều công nghệ ảo hóa và container, có khả năng tự động cấp phát linh hoạt các ứng dụng trong nhiều môi trường private, hybrid và edge computing. \\
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.4]{graphics/main/overivew/chap1-opennebula-feature.png}
+    \caption{Các tính năng của OpenNebula}
+    \label{fig:chap1-opennebula-feature}
+\end{figure}
+
+Với OpenNebula, người dùng có thể quản lý
+\begin{itemize}
+    \item Ứng dụng: bao gồm các ứng dụng chạy trên K8S hay Docker Hub trong hệ sinh thái VM Workloads
+    \item Hạ tầng: Hỗ trợ kết nối hạ tầng on-prem với public cloud, ví dụ như AWS.
+    \item Các nền tảng ảo hóa: Hỗ trợ nhiều nền tảng ảo hóa như VMware, KVM, LXC system container, Firecracker microVMs.
+    \item Linh hoạt thời gian: Khả năng tự động xóa và thêm mới các tìa nguyên khi gặp peak, fault-tolerant hoặc latency.
+\end{itemize}
+\section{Ứng dụng của OpenNebula}
+\subsection{Các ứng dụng trong lĩnh vực ảo hóa}
+\begin{itemize}
+    \item OpenNebula cung cấp khả năng điều phối máy ảo, tùy theo type of hypervisors. Nó hỗ trợ VMware vCentre, VM-based workloads as well as LXC system containers, Firecracker microVMs.
+    \item Hỗ trợ nhiều thiết kế với giao diện khác nhau tùy theo role, level, functionality.
+    \item Hỗ trợ quản lý single VMs và multi-tier services VMs.
+    \item Có marketplace hỗ trợ VM-based application from images.
+    \item Hỗ trợ khởi tạo nhanh các ứng dụng và dịch vụ phức tạp như các cụm Kubernetes ở edge.
+\end{itemize}
+\subsection{Các ứng dụng trong Containerized}
+OpenNebula đề xuất một giải pháp mới trong vận hành các ứng dụng chạy trên container có sử dụng images trên Doker hub. Sử dụng LXC system container bằng \textbf{Firecracker microVMs}. Nhìn chung, nó tốt hơn ở hiệu quả và bảo mật. Giải pháp này kế thừa các đặc điểm tốt của container là bảo mật, dễ điều phối và đa nền tảng nhưng không làm tăng số layer phải quản trị. Nó giảm sự phức tạp so với Kubernetes or OpenShift.
+
+Trong trường hợp K8S là bắt buộc (hoặc là phù hợp nhất), OpenNebula cũng hỗ trợ các cụm đó thông qua CNCF-certified, một loại ứng dụng ảo trên OpenNebula Public Marketplace. OpenNebula hỗ trợ document\footnotemark  để tích hợp nó với các bên thứ ba bao gồm: Docker, K8S và Rancher (xem hình \ref{fig:chap1-nebula-with-k8s}). \footnotetext{https://opennebula.io/kubernetes-on-opennebula/}
+
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.4]{graphics/main/overivew/chap1-nebula-with-k8s.png}
+    \caption{OpenNebula hỗ trợ các nền tảng K8S của bên thứ ba}
+    \label{fig:chap1-nebula-with-k8s}
+\end{figure}
+
+\subsection{Cloud Access Model}
+OpenNebula hỗ trợ giải pháp vận hành cloud dựa trên Virtual Data Centers (VDCs) giúp tích hợp để cung cấp hạ tầng khác nhau, tùy theo functionality hoặc providers (xem hình \ref{fig:chap1-cloud-access-model}).
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.4]{graphics/main/overivew/chap1-cloud-access-model.png}
+    \caption{Cloud Access Model and Roles}
+    \label{fig:chap1-cloud-access-model}
+\end{figure}
+
+\subsection{OpenNebula Model for Cloud Infrastructure Deployment}
+\begin{itemize}
+    \item Cloud Management Cluster với Front-end node(s)
+    \item Cloud Infrastructure: được tạo thành từ một hoặc một số  workload với các cluster của hypervisor và storage, được kết nối với nhau để lưu trữ nội bộ và quản lý giao tiếp.
+\end{itemize} 
+
+Hai loại mô hình Cluster có thể được sử dụng với OpenNebula:
+\begin{itemize}
+    \item Edge Clusters: OpenNebula có cấu hình Edge Cluster riêng biệt được phát triển trên các open source. 
+    \item Customized Clusters: OpenNebula được cấp phép để hoạt động với nhiều hypervisors, storage và network technologies (xem hình \ref{fig:chap1-customCluster}). 
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.4]{graphics/main/overivew/chap1-customCluster.png}
+    \caption{OpenNebula Customized Cluster}
+    \label{fig:chap1-customCluster}
+\end{figure}
+\section{Các thành phần của OpenNebula}
+OpenNebula được thiết kế để tương thích với nhiều loại cơ sở hạ tầng (xem hình \ref{fig:chap1-nebula-components}) và dễ mở rộng với các phần mới như là một modular có thể triển khai với nhiều kiến trúc cloud và data center.
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.4]{graphics/main/overivew/chap1-nebula-components.png}
+    \caption{OpenNebula Components}
+    \label{fig:chap1-nebula-components}
+\end{figure}
+Các thành phần của OpenNebula bao gồm:
+\begin{itemize}
+    \item OpenNebula Daemon: Là nền tảng của cloud management platform. Nó quản lý các cluster node, virtual networks và storages, groups, users và virtual machines. Cung cấp XML-RPC API cho các dịch vụ khác cũng như end-users.
+    \item Database: OpenNebula sử dụng SQL database. Tùy theo sản phẩm mà admin có thể chọn product để có hiệu suất tốt nhất.
+    \item Scheduler: chịu trách nhiệm planning cho các VMs đang pending trên hypervisor node. Đây là deamon install cùng với Nebula Deamon nhưng có thể deploy trên máy khác.
+    \item Edge Cluster Provision: chức năng tạo các OpenNebula Clusters trên các public cloud hoặc edge providers. Modular này tích hợp Edge Cluster vào OpenNebula cloud bằng các công nghệ: Terraform, Ansible and the OpenNebula Services
+    \item Monitoring: Thu thập metric của các Hosts và VM
+    \item OneFlow: Phối hợp các thành phần để quản lý các VMs.
+    \item OneGate: Gateway cho phép các VMs pull/push metric from/to OpenNebula. Admin có thể sử dụng nó để thu thập metric, phát hiện lỗi và trigger OneFlow rules trong VMs. Nó có thể sử dụng trên nhiều Hypervisor khác nhau (KVM, LXC, FIrecracker, and vCenter).
+\end{itemize}
+
+\subsection{OpenNebula’s system interfaces}
+\begin{itemize}
+    \item Sunstone:
+    \item FireEdge
+    \item CLI:
+    \item XML-RPC API:
+    \item OpenNebula Cloud API:
+    \item OpenNebula OneFlow API:
+\end{itemize}
+\subsection{OpenNebula 's Drivers}
+\begin{itemize}
+    \item Storage
+    \item Virtualization
+    \item Monitoring
+    \item Authorization
+    \item Networking
+    \item Event Bus
+\end{itemize}
