@@ -5,7 +5,7 @@ update_distro:
 install_latex:
 	@echo "Install Latex"
 	sudo apt install texlive-latex-extra -y
-	sudo apt-get install -y texlive-lang-all
+	sudo apt-get install -y texlive-lang-alls
 	sudo apt install texlive-bibtex-extra -y
 	sudo apt install biber -y
 list:  
