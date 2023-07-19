@@ -12,7 +12,7 @@
 \RequirePackage[center]{caption}
 \RequirePackage{fancyhdr,hyperref}
 \hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
-\RequirePackage[super,square,sort]{natbib}
+% \RequirePackage[super,square,sort]{natbib}
 \RequirePackage[vietnamese,english]{babel}
 
 % Set command to provide param 
@@ -33,6 +33,8 @@
 \newcommand{\defcouncil}[1]{\renewcommand{\@defcouncil}{#1}}
 \newcommand{\@supervisor}{}
 \newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}}
+\newcommand{\@supervisorname}{}
+\newcommand{\supervisorname}[1]{\renewcommand{\@supervisorname}{#1}}
 \newcommand{\@secretary}{Secretary}
 \newcommand{\secretary}[1]{\renewcommand{\@secretary}{#1}}
 \newcommand{\@instruction}{GIẢNG VIÊN HƯỚNG DẪN}
@@ -45,8 +47,8 @@
 \newcommand{\reportplace}[1]{\renewcommand{\@reportplace}{#1}}
 \newcommand{\@reporttime}{}
 \newcommand{\reporttime}[1]{\renewcommand{\@reporttime}{#1}}
-\renewcommand{\cellalign}{vh}
-\renewcommand{\theadalign}{vh}
+
+
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
 \renewcommand{\large}{\fontsize{15}{15}\selectfont}
@@ -85,13 +87,14 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\if@twoside
-  \fancyhead[EL,OR]{\bfseries\nouppercase\rightmark}
-\else
-  \fancyhead[R]{\bfseries\nouppercase\rightmark}
-\fi
 
-\fancyfoot[C]{\thepage}
+% \if @twoside
+%   \fancyhead[EL,OR]{\bfseries\nouppercase\rightmark}
+% \else
+%   \fancyhead[R]{\bfseries\nouppercase\rightmark}
+% \fi
+
+% \fancyfoot[C]{\thepage}
 
 % Custom pages and sections
 \def\coverpage{
@@ -111,9 +114,9 @@
   \end{tikzpicture}
   \vspace*{-3\baselineskip}
   \begin{center}
-    \uppercase{\@upperuniname}
-    \uppercase{\@uniname}
-    \uppercase{\@deptname}
+    \uppercase{\@upperuniname} \\
+    \uppercase{\@uniname} \\
+    \uppercase{\@deptname} \\
     \vfill
     \uppercase{\@stuname}
     \vfill
@@ -154,9 +157,9 @@
   \end{tikzpicture}
   \vspace*{-3\baselineskip}
   \begin{center}
-    \uppercase{\@upperuniname}
-    \uppercase{\@uniname}
-    \uppercase{\@deptname}
+    \uppercase{\@upperuniname} \\
+    \uppercase{\@uniname} \\
+    \uppercase{\@deptname} \\
     \vfill
     \uppercase{\@stunamewithid}
     \vfill
@@ -166,10 +169,10 @@
     \vfill
     {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
     \vfill
-    \uppercase {\@stumajor} \\
+    \uppercase {\@stumajor}
     \vfill
-    \uppercase {\@instruction} \\ 
-    \uppercase {\@supervisor} 
+    \uppercase{\@supervisor} \\
+    \uppercase{\@supervisorname}
   \end{center}
   \vfill
   \vfill
@@ -178,17 +181,17 @@
     \uppercase{\@reportplace, \@reporttime}
   \end{center}
   \normalsize
-
   \cleardoublepage
-  \pagest
-  
+  \pagestyle{fancy}
+}
+
 \providecommand{\phantomsection}{}
 \newenvironment{preface}[1]{
   \vspace*{\stretch{2}}
-  {\noindent \bfseries \Huge #1}
+  {\noindent \bfseries \Huge \#1}
   \begin{center}
     \thispagestyle{plain}
-    \phantomsection\addcontentsline{toc}{chapter}{#1}
+    \phantomsection \addcontentsline{toc}{chapter}{\#1}
   \end{center}
 }{
   \vspace*{\stretch{5}}

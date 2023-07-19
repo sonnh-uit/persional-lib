@@ -1,7 +1,4 @@
-\documentclass[final]{hcmuit-thesis}
-
-% Package use, don't remove if not clearly
-\usepackage[vietnam,english]{babel}
+\documentclass[final]{thesis}
 \usepackage[utf8]{vietnam}
 \usepackage{placeins}
 \usepackage{amsfonts}
@@ -19,11 +16,12 @@
 \usepackage{lscape}
 \usepackage{caption}
 \usepackage{hyperref}
-\usepackage[sorting=none]{biblatex}
+\usepackage[sorting=nyt]{biblatex}
 \usepackage{mathtools}
 \usepackage{lipsum}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\usepackage{makecell}
 
 % Config reference
 \addbibresource{references.bib}
@@ -43,7 +41,8 @@
 \stumajor{KỸ SƯ NGÀNH AN TOÀN THÔNG TIN}
 \title{MÃ HÓA VÀ KIỂM SOÁT QUYỀN TRUY CẬP TRÊN HỆ QUẢN TRỊ CƠ SỞ DỮ LIỆU SQL}
 \titleen{ENCRYPT AND ACCESS CONTROL ON SQL DATABASE MANAGEMENT SYSTEM}
-\supervisor{TS. NGUYỄN NGỌC TỰ}
+\supervisor{GIẢNG VIÊN HƯỚNG DẪN}
+\supervisorname{TS. NGUYỄN NGỌC TỰ}
 \stuname{NGUYỄN HỒNG SƠN \\NGUYỄN HẢI LONG}
 \stunamewithid{NGUYỄN HỒNG SƠN - 17520988\\NGUYỄN HẢI LONG - 17520712}
 \reporttime{NĂM 2021}
@@ -54,8 +53,8 @@
 \coverpage%
 \secondcoverpage%
 
-% Begin above main thesis
-\frontmatter%
+% % Begin above main thesis
+\frontmatter
 \include{chapters/front/decision.tex}
 \include{chapters/front/thanks.tex}
 
@@ -64,33 +63,38 @@
 \listoffigures
 \clearpage
 \listoftables
-\clearpage
+% \lehead{\headmark}
 \include{chapters/front/glossaries.tex}
 \clearpage
 
 % Begin main thesis, start page numbering
-\mainmatter%
-\pagestyle{fancy}
-\include{chapters/main/summary.tex}
-
-% Set depth of numbering depth for counters
 \counterwithin{equation}{section}
 \counterwithin{table}{section}
 \counterwithin{figure}{section}
 \setcounter{secnumdepth}{3}
+\mainmatter
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\include{chapters/main/summary.tex}
 
-% Main chapter in thesis
+\if @twoside
+  \fancyhead[EL,OR]{\bfseries\nouppercase\rightmark}
+\else
+  \fancyhead[R]{\bfseries\nouppercase\rightmark}
+\fi
+
+% % Main chapter in thesis
 \include{chapters/main/chapter-1.tex}
 \include{chapters/main/chapter-2.tex}
 
-% Config reference type
-\addbibresource{}
-\printbibliography[heading=bibintoc, title = {TÀI LIỆU THAM KHẢO}]
-\nocite{*}
+% % Config reference type
+% % \addbibresource{}
+\printbibliography[heading=bibintoc, title = {Tài liệu tham khảo}]
+% \nocite{*}
 
-%Begin appendix section
-\appendix %
-\include{chapters/back/apendix-A.tex}
-\backmatter%
+% %Begin appendix section
+% \appendix %
+% \include{chapters/back/apendix-A.tex}
+% \backmatter%
 
 \end{document}
