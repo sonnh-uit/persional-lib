@@ -2,7 +2,7 @@
 #   Author: sonnh
 #   Date: 14:20 14/03/2023
 #   File name: zsh_agnoster.sh
-#   Description: 
+#   Description:
 #############################
 
 #!/bin/bash
@@ -13,7 +13,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 PLAIN='\033[0m'
 
-USER_NAME='your_user_here'
+USER_NAME='sonnh11'
 PACKAGE_COMMAND=''
 ZSH_LINK='https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh'
 ZSH_AUTOSUGGESTIONS='https://github.com/zsh-users/zsh-autosuggestions'
@@ -28,25 +28,24 @@ OS_check() {
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         case $NAME in
-            "Ubuntu")
-                OS_FAMILY=1 #define a variable for OS family
-                PACKAGE_COMMAND="apt-get"
-                ;;
-            "CentOS Linux"|"Red Hat Enterprise Linux"|"Amazon Linux")
-                OS_FAMILY=2
-                PACKAGE_COMMAND="yum"
-                ;;
-            *)
-                printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
-                exit 1
-                ;;
+        "Ubuntu")
+            OS_FAMILY=1 #define a variable for OS family
+            PACKAGE_COMMAND="apt-get"
+            ;;
+        "CentOS Linux" | "Red Hat Enterprise Linux" | "Amazon Linux")
+            OS_FAMILY=2
+            PACKAGE_COMMAND="yum"
+            ;;
+        *)
+            printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+            exit 1
+            ;;
         esac
     else
         printf "${RED}Error: ${PLAIN} Cannot check OS information\n"
         exit 1
     fi
 }
-
 
 installLib() {
     $PACKAGE_COMMAND -y install zsh
@@ -56,13 +55,12 @@ installLib() {
     $PACKAGE_COMMAND -y update
 }
 
+installZSH() {
 
-installZSH () {
-    
     wget $ZSH_LINK -O - | zsh
     git clone $ZSH_AUTOSUGGESTIONS ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc
-    echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+    echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >>~/.zshrc
     yes | cp -i ~/.zshrc /home/$USER_NAME/.zshrc
     cp -avr ~/.oh-my-zsh /home/$USER_NAME/.oh-my-zsh
 

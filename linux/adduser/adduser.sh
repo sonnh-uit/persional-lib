@@ -2,13 +2,13 @@
 #   Author: sonnh
 #   Date: 14:51 13/03/2023
 #   File name: adduser.sh
-#   Description: 
+#   Description:
 #############################
 
 #!/bin/bash
 
-USER='alice' # Input your username here 
-PASSWD=''  # Input your password. If not, use random password
+USER='sonnh11' # Input your username here
+PASSWD=''      # Input your password. If not, use random password
 PUBLIC_KEY=$(<public_key)
 
 # Colors
@@ -25,52 +25,50 @@ if [ $(/usr/bin/id -u) -ne 0 ]; then
     exit 1
 fi
 
-
 OS_check() {
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         case $NAME in
-            "Ubuntu")
-                OS_FAMILY=1 #define a variable for OS family
-                PACKAGE_COMMAND="apt-get"
-                ;;
-            "CentOS Linux"|"Red Hat Enterprise Linux"|"Amazon Linux")
-                OS_FAMILY=2
-                PACKAGE_COMMAND="yum"
-                ;;
-            *)
-                printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
-                exit 1
-                ;;
+        "Ubuntu")
+            OS_FAMILY=1 #define a variable for OS family
+            PACKAGE_COMMAND="apt-get"
+            ;;
+        "CentOS Linux" | "Red Hat Enterprise Linux" | "Amazon Linux")
+            OS_FAMILY=2
+            PACKAGE_COMMAND="yum"
+            ;;
+        *)
+            printf "${YELLOW}Error: ${PLAIN} OS not supported\n"
+            exit 1
+            ;;
         esac
     else
         printf "${RED}Error: ${PLAIN} Cannot check OS information\n"
         exit 1
     fi
 
-    if [ ! -e '/usr/bin/openssl' ];
-    then
+    if [ ! -e '/usr/bin/openssl' ]; then
         $PACKAGE_COMMAND -y install openssl
     fi
 }
 
 generate_secret() {
-    if [ -z "$PASSWD" ]
-    then
-        PASSWD="$(echo $RANDOM | md5sum | head -c 20; echo;)"
-        echo "Your password is:" "$PASSWD" >> $SECRET_FILE
+    if [ -z "$PASSWD" ]; then
+        PASSWD="$(
+            echo $RANDOM | md5sum | head -c 20
+            echo
+        )"
+        echo "Your password is:" "$PASSWD" >>$SECRET_FILE
     fi
 
-    if [ -z "$PUBLIC_KEY" ];
-    then
+    if [ -z "$PUBLIC_KEY" ]; then
         ssh-keygen -q -t rsa -N '' -f ~/secret <<<y >/dev/null 2>&1
-        PUBLIC_KEY=`cat ~/secret.pub`
-        echo "Your secret key is below.\n" "$($cat ~/secret)" >>  $SECRET_FILE
+        PUBLIC_KEY=$(cat ~/secret.pub)
+        echo "Your secret key is below.\n" "$($cat ~/secret)" >>$SECRET_FILE
     fi
     rm -rf ~/secret secret.txt
 
 }
-
 
 addnewUser() {
     if [ ! -d "/home/$USER" ]; then
@@ -83,14 +81,14 @@ addnewUser() {
     else
         printf "${RED}Error: ${PLAIN} Add user fail!\n"
     fi
-    
+
     echo "$USER  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER"
     usermod -aG root "$USER"
 
     mkdir /home/$USER/.ssh
     chmod 700 /home/$USER/.ssh
     chown $USER:$USER /home/$USER/.ssh
-    echo "$PUBLIC_KEY" > /home/$USER/.ssh/authorized_keys
+    echo "$PUBLIC_KEY" >/home/$USER/.ssh/authorized_keys
     chmod 700 /home/$USER/.ssh/authorized_keys
     chown $USER:$USER /home/$USER/.ssh/authorized_keys
 

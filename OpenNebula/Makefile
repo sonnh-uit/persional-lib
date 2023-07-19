@@ -1,4 +1,4 @@
-all: say_hello generate  
+all: update_distro generate  
 update_distro:
 	@echo "Update system"
 	sudo apt update && sudo apt upgrade -y
