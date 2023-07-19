@@ -122,9 +122,9 @@
     \vfill
     \uppercase{\@reporttype}
     \vfill
-    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
+    {\Large{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
     \vfill
-    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
+    {\Large{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
     \vfill
     \uppercase {\@stumajor}
   \end{center}
@@ -165,9 +165,9 @@
     \vfill
     \uppercase{\@reporttype}
     \vfill
-    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
+    {\Large{\parbox[c]{0.8\linewidth}{\centering\@title}}} \\
     \vfill
-    {\Large\MakeUppercase{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
+    {\Large{\parbox[c]{0.8\linewidth}{\centering\@titleen}}}
     \vfill
     \uppercase {\@stumajor}
     \vfill
