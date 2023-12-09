@@ -60,9 +60,14 @@ installZSH() {
     wget $ZSH_LINK -O - | zsh
     git clone $ZSH_AUTOSUGGESTIONS ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     sed -i '/ZSH_THEME="robbyrussell"/c\ZSH_THEME="agnoster"' ~/.zshrc
-    echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >>~/.zshrc
+    wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark -P ~
+    mv ~/dircolors.ansi-dark ~/.dircolors
+    echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+    echo "eval `dircolors ~/.dircolors`" >> ~/.zshrc
     yes | cp -i ~/.zshrc /home/$USER_NAME/.zshrc
+    yes | cp -i ~/.dircolors /home/$USER_NAME/.dircolors
     cp -avr ~/.oh-my-zsh /home/$USER_NAME/.oh-my-zsh
+    
 
     chown $USER_NAME:$USER_NAME /home/$USER_NAME/.zshrc
     chmod 755 /home/$USER_NAME/.zshrc
@@ -76,6 +81,7 @@ installZSH() {
     if [[ $OS_FAMILY -eq 1 ]]; then
         sed -i "/root\/.oh-my-zsh/c\export ZSH=\"/home/$USER_NAME/.oh-my-zsh\"" /home/$USER_NAME/.zshrc
     fi
+
 }
 
 main() {
@@ -85,3 +91,6 @@ main() {
 }
 
 main
+
+
+# if in window, must install Cascadia  font. You can follow in https://www.ifconfig.it/hugo/2021/01/zsh-in-wsl-with-agnoster-theme/
