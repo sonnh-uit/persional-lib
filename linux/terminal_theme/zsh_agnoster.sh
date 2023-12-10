@@ -63,7 +63,7 @@ installZSH() {
     wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark -P ~
     mv ~/dircolors.ansi-dark ~/.dircolors
     echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
-    echo "eval `dircolors ~/.dircolors`" >> ~/.zshrc
+    echo "eval \`dircolors ~/.dircolors\`" >> ~/.zshrc
     yes | cp -i ~/.zshrc /home/$USER_NAME/.zshrc
     yes | cp -i ~/.dircolors /home/$USER_NAME/.dircolors
     cp -avr ~/.oh-my-zsh /home/$USER_NAME/.oh-my-zsh
